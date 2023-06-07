@@ -27,7 +27,7 @@ class MovieControllerTest {
         List<MovieDTO> movieDTO = Convertor.convertMovieToMovieDTO(fakeMovies);
         String viewName = controller.testView(mockModel);
 
-        assertEquals("most-popular-movies", viewName);
+        assertEquals("list-movies", viewName);
         Mockito.verify(mockModel).addAttribute("movies", movieDTO);
         Mockito.verify(mockModel).addAttribute("title", "Test movies");
     }
@@ -45,7 +45,7 @@ class MovieControllerTest {
 
         String viewName = controller.getMostPopularMovies(mockModel);
 
-        assertEquals("most-popular-movies", viewName);
+        assertEquals("list-movies", viewName);
         Mockito.verify(mockModel).addAttribute("movies", movieDTO);
         Mockito.verify(mockModel).addAttribute("title", "Most popular movies");
     }
@@ -63,7 +63,7 @@ class MovieControllerTest {
 
         String viewName = controller.getMostPopularSeries(mockModel);
 
-        assertEquals("most-popular-movies", viewName);
+        assertEquals("list-movies", viewName);
         Mockito.verify(mockModel).addAttribute("movies", movieDTO);
         Mockito.verify(mockModel).addAttribute("title", "Most popular series");
     }
@@ -81,7 +81,7 @@ class MovieControllerTest {
 
         String viewName = controller.getTop250Movies(mockModel);
 
-        assertEquals("most-popular-movies", viewName);
+        assertEquals("list-movies", viewName);
         Mockito.verify(mockModel).addAttribute("movies", top250DTO);
         Mockito.verify(mockModel).addAttribute("title", "Top 250 movies");
     }
@@ -99,7 +99,7 @@ class MovieControllerTest {
 
         String viewName = controller.getTop250Series(mockModel);
 
-        assertEquals("most-popular-movies", viewName);
+        assertEquals("list-movies", viewName);
         Mockito.verify(mockModel).addAttribute("movies", top250DTO);
         Mockito.verify(mockModel).addAttribute("title", "Top 250 series");
     }
