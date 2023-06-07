@@ -3,6 +3,7 @@ package com.shesternyak.myimdbapi.controller;
 import com.shesternyak.myimdbapi.domain.Movie;
 import com.shesternyak.myimdbapi.dto.MovieDTO;
 import com.shesternyak.myimdbapi.service.MoviesService;
+import com.shesternyak.myimdbapi.system.Convertor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,7 +40,7 @@ public class MovieController {
     @RequestMapping("/most-popular-movies")
     public String getMostPopularMovies(Model model) {
         List<Movie> mostPopularMovies = moviesService.getMostPopularMovies();
-        List<MovieDTO> mpmDTO = moviesService.convertMovieToMovieDTO(mostPopularMovies);
+        List<MovieDTO> mpmDTO = Convertor.convertMovieToMovieDTO(mostPopularMovies);
 
         model.addAttribute("movies", mpmDTO);
         return "most-popular-movies";
@@ -48,7 +49,7 @@ public class MovieController {
     @RequestMapping("/most-popular-series")
     public String getMostPopularSeries(Model model) {
         List<Movie> mostPopularSeries = moviesService.getMostPopularSeries();
-        List<MovieDTO> mpsDTO = moviesService.convertMovieToMovieDTO(mostPopularSeries);
+        List<MovieDTO> mpsDTO = Convertor.convertMovieToMovieDTO(mostPopularSeries);
 
         model.addAttribute("movies", mpsDTO);
         return "most-popular-movies";
@@ -57,7 +58,7 @@ public class MovieController {
     @RequestMapping("/top-250-movies")
     public String getTop250Movies(Model model) {
         List<Movie> top250Movies = moviesService.getTop250Movies();
-        List<MovieDTO> top250DTO = moviesService.convertMovieToMovieDTO(top250Movies);
+        List<MovieDTO> top250DTO = Convertor.convertMovieToMovieDTO(top250Movies);
 
         model.addAttribute("movies", top250DTO);
         return "most-popular-movies";
@@ -66,7 +67,7 @@ public class MovieController {
     @RequestMapping("/top-250-series")
     public String getTop250Series(Model model) {
         List<Movie> top250Series = moviesService.getTop250Series();
-        List<MovieDTO> top250DTO = moviesService.convertMovieToMovieDTO(top250Series);
+        List<MovieDTO> top250DTO = Convertor.convertMovieToMovieDTO(top250Series);
 
         model.addAttribute("movies", top250DTO);
         return "most-popular-movies";
