@@ -44,4 +44,31 @@ public class MovieController {
         model.addAttribute("movies", mpmDTO);
         return "most-popular-movies";
     }
+
+    @RequestMapping("/most-popular-series")
+    public String getMostPopularSeries(Model model) {
+        List<Movie> mostPopularSeries = moviesService.getMostPopularSeries();
+        List<MovieDTO> mpsDTO = moviesService.convertMovieToMovieDTO(mostPopularSeries);
+
+        model.addAttribute("movies", mpsDTO);
+        return "most-popular-movies";
+    }
+
+    @RequestMapping("/top-250-movies")
+    public String getTop250Movies(Model model) {
+        List<Movie> top250Movies = moviesService.getTop250Movies();
+        List<MovieDTO> top250DTO = moviesService.convertMovieToMovieDTO(top250Movies);
+
+        model.addAttribute("movies", top250DTO);
+        return "most-popular-movies";
+    }
+
+    @RequestMapping("/top-250-series")
+    public String getTop250Series(Model model) {
+        List<Movie> top250Series = moviesService.getTop250Series();
+        List<MovieDTO> top250DTO = moviesService.convertMovieToMovieDTO(top250Series);
+
+        model.addAttribute("movies", top250DTO);
+        return "most-popular-movies";
+    }
 }
