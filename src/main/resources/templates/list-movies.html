@@ -41,25 +41,25 @@
                     <a class="nav-link" th:href="@{/top-250-series}">Top 250 Series</a>
                 </span>
 
-                <span th:if="${active == 'top250series'}">
+                <span th:if="${active == 'saved'}">
                     <a class="nav-link active" th:href="@{/saved}">Saved</a>
                 </span>
-                <span th:unless="${active == 'top250series'}">
+                <span th:unless="${active == 'saved'}">
                     <a class="nav-link" th:href="@{/saved}">Saved</a>
                 </span>
 
-                <span th:if="${active == 'top250series'}">
+                <span th:if="${active == 'favorites'}">
                     <a class="nav-link active" th:href="@{/favorites}">Favorites</a>
                 </span>
-                <span th:unless="${active == 'top250series'}">
+                <span th:unless="${active == 'favorites'}">
                     <a class="nav-link" th:href="@{/favorites}">Favorites</a>
                 </span>
 
                 <span sec:authorize="hasAuthority('ADMIN')">
-                    <span th:if="${active == 'top250series'}">
+                    <span th:if="${active == 'admin'}">
                         <a class="nav-link active" th:href="@{/admin}">Admin</a>
                     </span>
-                    <span th:unless="${active == 'top250series'}">
+                    <span th:unless="${active == 'admin'}">
                         <a class="nav-link" th:href="@{/admin}">Admin</a>
                     </span>
                 </span>
