@@ -15,4 +15,16 @@ public class MovieDTO {
     private String image;
     private String crew;
     private float imDbRating;
+
+    public MovieDTO(String id, String title, int year, String image, String crew, float imDbRating) {
+        this.id = id;
+        this.title = title;
+        this.year = year;
+        this.image = image;
+        this.crew = crew;
+        this.imDbRating = imDbRating;
+    }
+
+    private boolean isSaved;
+    private boolean isFavorites;
 }
