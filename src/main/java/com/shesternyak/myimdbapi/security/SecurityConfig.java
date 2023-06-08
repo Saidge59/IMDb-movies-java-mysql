@@ -26,6 +26,8 @@ public class SecurityConfig {
                         (requests) -> requests
                                 .requestMatchers(
                                         "/",
+                                        "/test-movie",
+                                        "/registration",
                                         "/most-popular-movies",
                                         "/most-popular-series",
                                         "/top-250-movie",
@@ -35,7 +37,7 @@ public class SecurityConfig {
                 .formLogin((form) -> form
                         .loginPage("/login")
                         .loginProcessingUrl("/login")
-                        .defaultSuccessUrl("/most-popular-movies")
+                        .defaultSuccessUrl("/test-movie")
                         .permitAll())
                 .logout((logout) -> logout.permitAll());
 
