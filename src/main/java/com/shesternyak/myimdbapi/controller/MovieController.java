@@ -46,6 +46,7 @@ public class MovieController {
 
         model.addAttribute("movies", mpmDTO);
         model.addAttribute("title", "Most popular movies");
+        model.addAttribute("active", "mostPopularMovies");
 
         return "list-movies";
     }
@@ -57,6 +58,7 @@ public class MovieController {
 
         model.addAttribute("movies", mpsDTO);
         model.addAttribute("title", "Most popular series");
+        model.addAttribute("active", "mostPopularSeries");
 
         return "list-movies";
     }
@@ -68,6 +70,7 @@ public class MovieController {
 
         model.addAttribute("movies", top250DTO);
         model.addAttribute("title", "Top 250 movies");
+        model.addAttribute("active", "top250movies");
 
         return "list-movies";
     }
@@ -79,6 +82,7 @@ public class MovieController {
 
         model.addAttribute("movies", top250DTO);
         model.addAttribute("title", "Top 250 series");
+        model.addAttribute("active", "top250series");
 
         return "list-movies";
     }
