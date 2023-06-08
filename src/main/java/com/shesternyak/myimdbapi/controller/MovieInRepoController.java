@@ -33,13 +33,15 @@ public class MovieInRepoController {
         switch (action) {
             case "saved":
                 movieService.saveSavedMovies(movieDTO);
-                redirectAttributes.addFlashAttribute("title", "Saved movies");
-                redirectAttributes.addFlashAttribute("active", "saved");
                 return "redirect:/saved";
             case "favorites":
                 movieService.saveFavoritesMovies(movieDTO);
-                redirectAttributes.addFlashAttribute("title", "Favorites movies");
-                redirectAttributes.addFlashAttribute("active", "favorites");
+                return "redirect:/favorites";
+            case "delete":
+                movieService.deleteSavedMovies(movieDTO);
+                return "redirect:/saved";
+            case "no_favorites":
+                movieService.deleteFavoritesMovies(movieDTO);
                 return "redirect:/favorites";
             default:
                 throw new IllegalArgumentException();
@@ -52,6 +54,7 @@ public class MovieInRepoController {
 
         if (allMovies != null) {
             List<MovieDTO> mpmDTO = Convertor.convertMovieSavedToMovieDTO(allMovies);
+            mpmDTO = mpmDTO.stream().peek(m -> m.setSaved(true)).toList();
             model.addAttribute("movies", mpmDTO);
         } else {
             model.addAttribute("movies", new ArrayList<MovieDTO>());
@@ -68,6 +71,7 @@ public class MovieInRepoController {
 
         if (allMovies != null) {
             List<MovieDTO> mpmDTO = Convertor.convertMovieFavoritesToMovieDTO(allMovies);
+            mpmDTO = mpmDTO.stream().peek(m -> m.setFavorites(true)).toList();
             model.addAttribute("movies", mpmDTO);
         } else {
             model.addAttribute("movies", new ArrayList<MovieDTO>());
