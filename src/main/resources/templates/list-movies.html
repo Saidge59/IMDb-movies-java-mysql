@@ -56,12 +56,7 @@
                 </span>
 
                 <span sec:authorize="hasAuthority('ADMIN')">
-                    <span th:if="${active == 'admin'}">
-                        <a class="nav-link active" th:href="@{/admin}">Admin</a>
-                    </span>
-                    <span th:unless="${active == 'admin'}">
-                        <a class="nav-link" th:href="@{/admin}">Admin</a>
-                    </span>
+                    <a class="nav-link" th:href="@{/admin}">Admin</a>
                 </span>
 
             </div>
