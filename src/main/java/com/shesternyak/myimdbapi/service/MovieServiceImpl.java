@@ -5,6 +5,7 @@ import com.shesternyak.myimdbapi.domain.MovieSaved;
 import com.shesternyak.myimdbapi.dto.MovieDTO;
 import com.shesternyak.myimdbapi.repo.FavoritesMovieRepository;
 import com.shesternyak.myimdbapi.repo.SavedMovieRepository;
+import com.shesternyak.myimdbapi.system.Convertor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -63,12 +64,12 @@ public class MovieServiceImpl implements MovieService{
     }
 
     @Override
-    public void deleteSavedMovies(int id) {
-        movieSavedRepository.deleteById(id);
+    public void deleteSavedMovies(MovieDTO movie) {
+        movieSavedRepository.delete(Convertor.convertMovieDTOToMovieSaved(movie));
     }
 
     @Override
-    public void deleteFavoritesMovies(int id) {
-        movieFavoritesRepository.deleteById(id);
+    public void deleteFavoritesMovies(MovieDTO movie) {
+        movieFavoritesRepository.delete(Convertor.convertMovieDTOToMovieFavorites(movie));
     }
 }
