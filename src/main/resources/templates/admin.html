@@ -16,47 +16,12 @@
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
 
-                <span th:if="${active == 'mostPopularMovies'}">
-                    <a class="nav-link active" th:href="@{/most-popular-movies}">Top 100 Most Popular Movies</a>
-                </span>
-                <span th:unless="${active == 'mostPopularMovies'}">
-                    <a class="nav-link" th:href="@{/most-popular-movies}">Top 100 Most Popular Movies</a>
-                </span>
-
-                <span th:if="${active == 'mostPopularSeries'}">
-                    <a class="nav-link active" th:href="@{/most-popular-series}">Top 100 Most Popular Series</a>
-                </span>
-                <span th:unless="${active == 'mostPopularSeries'}">
-                   <a class="nav-link" th:href="@{/most-popular-series}">Top 100 Most Popular Series</a>
-                </span>
-
-                <span th:if="${active == 'top250movies'}">
-                    <a class="nav-link active" th:href="@{/top-250-movies}">Top 250 Movies</a>
-                </span>
-                <span th:unless="${active == 'top250movies'}">
-                    <a class="nav-link" th:href="@{/top-250-movies}">Top 250 Movies</a>
-                </span>
-
-                <span th:if="${active == 'top250series'}">
-                    <a class="nav-link active" th:href="@{/top-250-series}">Top 250 Series</a>
-                </span>
-                <span th:unless="${active == 'top250series'}">
-                    <a class="nav-link" th:href="@{/top-250-series}">Top 250 Series</a>
-                </span>
-
-                <span th:if="${active == 'saved'}">
-                    <a class="nav-link active" th:href="@{/saved}">Saved</a>
-                </span>
-                <span th:unless="${active == 'saved'}">
-                    <a class="nav-link" th:href="@{/saved}">Saved</a>
-                </span>
-
-                <span th:if="${active == 'favorites'}">
-                    <a class="nav-link active" th:href="@{/favorites}">Favorites</a>
-                </span>
-                <span th:unless="${active == 'favorites'}">
-                    <a class="nav-link" th:href="@{/favorites}">Favorites</a>
-                </span>
+                <a class="nav-link" th:href="@{/most-popular-movies}">Top 100 Most Popular Movies</a>
+                <a class="nav-link" th:href="@{/most-popular-series}">Top 100 Most Popular Series</a>
+                <a class="nav-link" th:href="@{/top-250-movies}">Top 250 Movies</a>
+                <a class="nav-link" th:href="@{/top-250-series}">Top 250 Series</a>
+                <a class="nav-link" th:href="@{/saved}">Saved</a>
+                <a class="nav-link" th:href="@{/favorites}">Favorites</a>
 
                 <span sec:authorize="hasAuthority('ADMIN')">
                     <span th:if="${active == 'admin'}">
