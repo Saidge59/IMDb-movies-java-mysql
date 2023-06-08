@@ -30,7 +30,7 @@ public class SecurityConfig {
                                         "/registration",
                                         "/most-popular-movies",
                                         "/most-popular-series",
-                                        "/top-250-movie",
+                                        "/top-250-movies",
                                         "/top-250-series"
                                 ).permitAll()
                                 .anyRequest().authenticated())
