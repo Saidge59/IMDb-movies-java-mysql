@@ -2,7 +2,7 @@ package com.shesternyak.myimdbapi.controller;
 
 import com.shesternyak.myimdbapi.domain.Movie;
 import com.shesternyak.myimdbapi.dto.MovieDTO;
-import com.shesternyak.myimdbapi.service.MoviesService;
+import com.shesternyak.myimdbapi.service.MoviesFromIMDdService;
 import com.shesternyak.myimdbapi.system.Convertor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,9 +14,9 @@ import java.util.List;
 @Controller
 public class MovieController {
 
-    MoviesService moviesService;
+    MoviesFromIMDdService moviesService;
 
-    public MovieController(MoviesService moviesService) {
+    public MovieController(MoviesFromIMDdService moviesService) {
         this.moviesService = moviesService;
     }
 
