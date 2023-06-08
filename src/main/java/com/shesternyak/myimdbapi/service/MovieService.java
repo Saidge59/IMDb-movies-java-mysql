@@ -20,6 +20,6 @@ public interface MovieService {
     MovieSaved updateSavedMovies(MovieSaved movie);
     MovieFavorites updateFavoritesMovies(MovieFavorites movie);
 
-    void deleteSavedMovies(int id);
-    void deleteFavoritesMovies(int id);
+    void deleteSavedMovies(MovieDTO movie);
+    void deleteFavoritesMovies(MovieDTO movie);
 }
