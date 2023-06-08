@@ -31,7 +31,8 @@ public class SecurityConfig {
                                         "/most-popular-movies",
                                         "/most-popular-series",
                                         "/top-250-movies",
-                                        "/top-250-series"
+                                        "/top-250-series",
+                                        "/movie-list"
                                 ).permitAll()
                                 .anyRequest().authenticated())
                 .formLogin((form) -> form
