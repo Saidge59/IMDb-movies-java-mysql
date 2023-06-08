@@ -17,7 +17,9 @@ public class SecurityConfig {
                                 .requestMatchers(
                                         "/",
                                         "/most-popular-movies",
-                                        "/most-popular-series"
+                                        "/most-popular-series",
+                                        "/top-250-movie",
+                                        "/top-250-series"
                                 ).permitAll()
                                 .anyRequest().authenticated())
                 .formLogin((form) -> form
