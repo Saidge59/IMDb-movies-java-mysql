@@ -3,11 +3,13 @@ package com.shesternyak.myimdbapi.dto;
 import com.shesternyak.myimdbapi.domain.Movie;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode
 public class MovieDTO {
     private String id;
     private String title;
