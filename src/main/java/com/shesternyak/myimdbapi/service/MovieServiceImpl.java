@@ -6,11 +6,13 @@ import com.shesternyak.myimdbapi.repo.MovieDBRepository;
 import com.shesternyak.myimdbapi.system.Convertor;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Predicate;
 
 @Service
-public class MovieServiceImpl implements MovieService{
+public class MovieServiceImpl implements MovieService {
 
     MovieDBRepository movieDBRepository;
 
@@ -24,14 +26,14 @@ public class MovieServiceImpl implements MovieService{
     }
 
     @Override
-    public MovieDB saveMovies(MovieDTO movieDTO) {
-        MovieDB movie = new MovieDB(movieDTO.getId(), movieDTO.getTitle(), movieDTO.getYear(), movieDTO.getImage(), movieDTO.getCrew(), movieDTO.getImDbRating(), movieDTO.isSaved(), movieDTO.isFavorites());
+    public MovieDB saveMovies(MovieDB movie) {
         return movieDBRepository.save(movie);
     }
 
     @Override
-    public Optional<MovieDB> getById(String id) {
-        return movieDBRepository.findById(id);
+    public MovieDB getById(String id) {
+        Optional<MovieDB> byId = movieDBRepository.findById(id);
+        return byId.orElseGet(MovieDB::new);
     }
 
     @Override
@@ -40,7 +42,19 @@ public class MovieServiceImpl implements MovieService{
     }
 
     @Override
-    public void deleteMovies(MovieDTO movie) {
-        movieDBRepository.delete(Convertor.convertMovieDTOToMovieDB(movie));
+    public void deleteMovies(MovieDB movie) {
+        movieDBRepository.delete(movie);
+    }
+
+    @Override
+    public List<MovieDTO> getListMovieDTO(Predicate<MovieDB> predicate) {
+        List<MovieDB> movies = movieDBRepository.findAll();
+        List<MovieDTO> moviesDTO = Collections.emptyList();
+
+        if (movies != null) {
+            movies = movies.stream().filter(predicate).toList();
+            moviesDTO = Convertor.convertMovieDBToMovieDTO(movies);
+        }
+        return moviesDTO;
     }
 }
