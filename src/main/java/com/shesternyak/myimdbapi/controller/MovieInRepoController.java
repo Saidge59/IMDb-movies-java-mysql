@@ -6,14 +6,12 @@ import com.shesternyak.myimdbapi.service.MovieService;
 import com.shesternyak.myimdbapi.system.Convertor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
-import java.util.function.Predicate;
 
 @Controller
 public class MovieInRepoController {
@@ -24,83 +22,110 @@ public class MovieInRepoController {
         this.movieService = movieService;
     }
 
-    @PostMapping(value = "/movie-list")
-    public String updateToMySaved(
+    @PostMapping(value = "/most-popular-movies")
+    public String updateMPMRepo(
             @RequestParam("action") String action,
-            @ModelAttribute("movie") MovieDTO movieDTO,
-            RedirectAttributes redirectAttributes) {
+            @ModelAttribute("movie") MovieDTO movieDTO) {
 
-        Optional<MovieDB> byId = movieService.getById(movieDTO.getId());
-        switch (action) {
-            case "saved":
-                if (byId.isPresent()) {
-                    MovieDB movieDB = byId.get();
-                    movieDTO.setFavorites(movieDB.isFavorites());
-                }
-                movieDTO.setSaved(true);
-                movieService.saveMovies(movieDTO);
-                return "redirect:/saved";
-            case "favorites":
-                if (byId.isPresent()) {
-                    MovieDB movieDB = byId.get();
-                    movieDTO.setSaved(movieDB.isSaved());
-                }
-                movieDTO.setFavorites(true);
-                movieService.saveMovies(movieDTO);
-                return "redirect:/favorites";
-            case "delete":
-                if (byId.isPresent()) {
-                    MovieDB movieDB = byId.get();
-                    if (!movieDB.isFavorites()) {
-                        movieService.deleteMovies(movieDTO);
-                    } else {
-                        movieDTO.setFavorites(true);
-                        movieDTO.setSaved(false);
-                        movieService.saveMovies(movieDTO);
-                    }
-                }
-                return "redirect:/saved";
-            case "no_favorites":
-                if (byId.isPresent()) {
-                    MovieDB movieDB = byId.get();
-                    if (!movieDB.isSaved()) {
-                        movieService.deleteMovies(movieDTO);
-                    } else {
-                        movieDTO.setSaved(true);
-                        movieDTO.setFavorites(false);
-                        movieService.saveMovies(movieDTO);
-                    }
-                }
-                return "redirect:/favorites";
-            default:
-                throw new IllegalArgumentException();
-        }
+        actionWithRepo(action, movieDTO);
+
+        return "redirect:/most-popular-movies";
+    }
+    @PostMapping(value = "/most-popular-series")
+    public String updateMPSRepo(
+            @RequestParam("action") String action,
+            @ModelAttribute("movie") MovieDTO movieDTO) {
+
+        actionWithRepo(action, movieDTO);
+
+        return "redirect:/most-popular-series";
+    }
+    @PostMapping(value = "/top-250-movies")
+    public String updateT250MRepo(
+            @RequestParam("action") String action,
+            @ModelAttribute("movie") MovieDTO movieDTO) {
+
+        actionWithRepo(action, movieDTO);
+
+        return "redirect:/top-250-movies";
+    }
+    @PostMapping(value = "/top-250-series")
+    public String updateT250SRepo(
+            @RequestParam("action") String action,
+            @ModelAttribute("movie") MovieDTO movieDTO) {
+
+        actionWithRepo(action, movieDTO);
+
+        return "redirect:/top-250-series";
+    }
+
+    @PostMapping(value = "/saved")
+    public String updateSavedRepo(
+            @RequestParam("action") String action,
+            @ModelAttribute("movie") MovieDTO movieDTO) {
+
+        actionWithRepo(action, movieDTO);
+
+        return "redirect:/saved";
+    }
+
+    @PostMapping(value = "/favorites")
+    public String updateFavoritesRepo(
+            @RequestParam("action") String action,
+            @ModelAttribute("movie") MovieDTO movieDTO) {
+
+        actionWithRepo(action, movieDTO);
+
+        return "redirect:/favorites";
     }
 
     @GetMapping(value = "/saved")
     public String saved(Model model) {
-        List<MovieDTO> listMovieDTO = getListMovieDTO(MovieDB::isSaved);
+        List<MovieDTO> listMovieDTO = movieService.getListMovieDTO(MovieDB::isSaved);
         model.addAttribute("movies", listMovieDTO);
         return "saved";
     }
 
     @GetMapping(value = "/favorites")
     public String favorites(Model model) {
-        List<MovieDTO> listMovieDTO = getListMovieDTO(MovieDB::isFavorites);
+        List<MovieDTO> listMovieDTO = movieService.getListMovieDTO(MovieDB::isFavorites);
         model.addAttribute("movies", listMovieDTO);
         return "favorites";
     }
 
-    private List<MovieDTO> getListMovieDTO(Predicate<MovieDB> predicate) {
-        List<MovieDB> allMovies = movieService.getAllMovies();
-        List<MovieDTO> mpmDTO = Collections.emptyList();
+    private void actionWithRepo(String action, MovieDTO movieDTO){
+        MovieDB movie = movieService.getById(movieDTO.getId());
+        movieDTO.setSaved(movie.isSaved());
+        movieDTO.setFavorites(movie.isFavorites());
 
-        if (allMovies != null) {
-            allMovies = allMovies.stream().filter(predicate).toList();
-            mpmDTO = Convertor.convertMovieDBToMovieDTO(allMovies);
+        switch (action) {
+            case "saved":
+                movieDTO.setSaved(true);
+                movieService.saveMovies(Convertor.convertMovieDTOToMovieDB(movieDTO));
+                break;
+            case "favorites":
+                movieDTO.setFavorites(true);
+                movieService.saveMovies(Convertor.convertMovieDTOToMovieDB(movieDTO));
+                break;
+            case "delete":
+                if (!movieDTO.isFavorites()) {
+                    movieService.deleteMovies(Convertor.convertMovieDTOToMovieDB(movieDTO));
+                } else {
+                    movieDTO.setSaved(false);
+                    movieService.saveMovies(Convertor.convertMovieDTOToMovieDB(movieDTO));
+                }
+                break;
+            case "no_favorites":
+                if (!movieDTO.isSaved()) {
+                    movieService.deleteMovies(Convertor.convertMovieDTOToMovieDB(movieDTO));
+                } else {
+                    movieDTO.setFavorites(false);
+                    movieService.saveMovies(Convertor.convertMovieDTOToMovieDB(movieDTO));
+                }
+                break;
+            default:
+                throw new IllegalArgumentException();
         }
-
-        return mpmDTO;
     }
 
 }
