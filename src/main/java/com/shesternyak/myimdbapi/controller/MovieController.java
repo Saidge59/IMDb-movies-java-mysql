@@ -48,7 +48,7 @@ public class MovieController {
         model.addAttribute("title", "Most popular movies");
         model.addAttribute("active", "mostPopularMovies");
 
-        return "list-movies";
+        return "most-popular-movies";
     }
 
     @RequestMapping("/most-popular-series")
@@ -60,7 +60,7 @@ public class MovieController {
         model.addAttribute("title", "Most popular series");
         model.addAttribute("active", "mostPopularSeries");
 
-        return "list-movies";
+        return "most-popular-series";
     }
 
     @RequestMapping("/top-250-movies")
