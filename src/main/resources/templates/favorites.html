@@ -62,7 +62,7 @@
                         <hr>
                     </div>
 
-                    <form th:action="@{/movie-list}" th:object="${movie}" method="POST">
+                    <form th:action="@{/favorites}" th:object="${movie}" method="POST">
                         <div class="form-group">
 
                             <input type="hidden" name="id" th:value="*{id}" />
