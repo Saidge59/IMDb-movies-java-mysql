@@ -1,25 +1,19 @@
 package com.shesternyak.myimdbapi.service;
 
-import com.shesternyak.myimdbapi.domain.Movie;
-import com.shesternyak.myimdbapi.domain.MovieFavorites;
-import com.shesternyak.myimdbapi.domain.MovieSaved;
+import com.shesternyak.myimdbapi.domain.MovieDB;
 import com.shesternyak.myimdbapi.dto.MovieDTO;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface MovieService {
-    List<MovieSaved> getAllSavedMovies();
-    List<MovieFavorites> getAllFavoritesMovies();
+    List<MovieDB> getAllMovies();
 
-    MovieSaved saveSavedMovies(MovieDTO movieDTO);
-    MovieFavorites saveFavoritesMovies(MovieDTO movieDTO);
+    MovieDB saveMovies(MovieDTO movieDTO);
 
-    MovieSaved getSavedMoviesById(int id);
-    MovieFavorites getFavoritesMoviesById(int id);
+    Optional<MovieDB> getById(String id);
 
-    MovieSaved updateSavedMovies(MovieSaved movie);
-    MovieFavorites updateFavoritesMovies(MovieFavorites movie);
+    MovieDB updateMovies(MovieDB movie);
 
-    void deleteSavedMovies(MovieDTO movie);
-    void deleteFavoritesMovies(MovieDTO movie);
+    void deleteMovies(MovieDTO movie);
 }
