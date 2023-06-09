@@ -1,75 +1,46 @@
 package com.shesternyak.myimdbapi.service;
 
-import com.shesternyak.myimdbapi.domain.MovieFavorites;
-import com.shesternyak.myimdbapi.domain.MovieSaved;
+import com.shesternyak.myimdbapi.domain.MovieDB;
 import com.shesternyak.myimdbapi.dto.MovieDTO;
-import com.shesternyak.myimdbapi.repo.FavoritesMovieRepository;
-import com.shesternyak.myimdbapi.repo.SavedMovieRepository;
+import com.shesternyak.myimdbapi.repo.MovieDBRepository;
 import com.shesternyak.myimdbapi.system.Convertor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class MovieServiceImpl implements MovieService{
 
-    SavedMovieRepository movieSavedRepository;
-    FavoritesMovieRepository movieFavoritesRepository;
+    MovieDBRepository movieDBRepository;
 
-    public MovieServiceImpl(SavedMovieRepository movieSavedRepository, FavoritesMovieRepository movieFavoritesRepository) {
-        this.movieSavedRepository = movieSavedRepository;
-        this.movieFavoritesRepository = movieFavoritesRepository;
+    public MovieServiceImpl(MovieDBRepository movieDBRepository) {
+        this.movieDBRepository = movieDBRepository;
     }
 
     @Override
-    public List<MovieSaved> getAllSavedMovies() {
-        return movieSavedRepository.findAll();
+    public List<MovieDB> getAllMovies() {
+        return movieDBRepository.findAll();
     }
 
     @Override
-    public List<MovieFavorites> getAllFavoritesMovies() {
-        return movieFavoritesRepository.findAll();
+    public MovieDB saveMovies(MovieDTO movieDTO) {
+        MovieDB movie = new MovieDB(movieDTO.getId(), movieDTO.getTitle(), movieDTO.getYear(), movieDTO.getImage(), movieDTO.getCrew(), movieDTO.getImDbRating(), movieDTO.isSaved(), movieDTO.isFavorites());
+        return movieDBRepository.save(movie);
     }
 
     @Override
-    public MovieSaved saveSavedMovies(MovieDTO movieDTO) {
-        MovieSaved movie = new MovieSaved(movieDTO.getId(), movieDTO.getTitle(), movieDTO.getYear(), movieDTO.getImage(), movieDTO.getCrew(), movieDTO.getImDbRating());
-        return movieSavedRepository.save(movie);
+    public Optional<MovieDB> getById(String id) {
+        return movieDBRepository.findById(id);
     }
 
     @Override
-    public MovieFavorites saveFavoritesMovies(MovieDTO movieDTO) {
-        MovieFavorites movie = new MovieFavorites(movieDTO.getId(), movieDTO.getTitle(), movieDTO.getYear(), movieDTO.getImage(), movieDTO.getCrew(), movieDTO.getImDbRating());
-        return movieFavoritesRepository.save(movie);
+    public MovieDB updateMovies(MovieDB movie) {
+        return movieDBRepository.save(movie);
     }
 
     @Override
-    public MovieSaved getSavedMoviesById(int id) {
-        return movieSavedRepository.findById(id).get();
-    }
-
-    @Override
-    public MovieFavorites getFavoritesMoviesById(int id) {
-        return movieFavoritesRepository.findById(id).get();
-    }
-
-    @Override
-    public MovieSaved updateSavedMovies(MovieSaved movie) {
-        return movieSavedRepository.save(movie);
-    }
-
-    @Override
-    public MovieFavorites updateFavoritesMovies(MovieFavorites movie) {
-        return movieFavoritesRepository.save(movie);
-    }
-
-    @Override
-    public void deleteSavedMovies(MovieDTO movie) {
-        movieSavedRepository.delete(Convertor.convertMovieDTOToMovieSaved(movie));
-    }
-
-    @Override
-    public void deleteFavoritesMovies(MovieDTO movie) {
-        movieFavoritesRepository.delete(Convertor.convertMovieDTOToMovieFavorites(movie));
+    public void deleteMovies(MovieDTO movie) {
+        movieDBRepository.delete(Convertor.convertMovieDTOToMovieDB(movie));
     }
 }
