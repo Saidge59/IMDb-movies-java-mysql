@@ -34,7 +34,6 @@ public class MovieController {
         movies.add(movie4);
 
         model.addAttribute("movies", movies);
-        model.addAttribute("title", "Test movies");
 
         return "list-movies";
     }
@@ -45,8 +44,6 @@ public class MovieController {
         List<MovieDTO> mpmDTO = Convertor.convertMovieToMovieDTO(mostPopularMovies);
 
         model.addAttribute("movies", mpmDTO);
-        model.addAttribute("title", "Most popular movies");
-        model.addAttribute("active", "mostPopularMovies");
 
         return "most-popular-movies";
     }
@@ -57,8 +54,6 @@ public class MovieController {
         List<MovieDTO> mpsDTO = Convertor.convertMovieToMovieDTO(mostPopularSeries);
 
         model.addAttribute("movies", mpsDTO);
-        model.addAttribute("title", "Most popular series");
-        model.addAttribute("active", "mostPopularSeries");
 
         return "most-popular-series";
     }
@@ -69,10 +64,8 @@ public class MovieController {
         List<MovieDTO> top250DTO = Convertor.convertMovieToMovieDTO(top250Movies);
 
         model.addAttribute("movies", top250DTO);
-        model.addAttribute("title", "Top 250 movies");
-        model.addAttribute("active", "top250movies");
 
-        return "list-movies";
+        return "top-250-movies";
     }
 
     @RequestMapping("/top-250-series")
@@ -81,9 +74,7 @@ public class MovieController {
         List<MovieDTO> top250DTO = Convertor.convertMovieToMovieDTO(top250Series);
 
         model.addAttribute("movies", top250DTO);
-        model.addAttribute("title", "Top 250 series");
-        model.addAttribute("active", "top250series");
 
-        return "list-movies";
+        return "top-250-series";
     }
 }

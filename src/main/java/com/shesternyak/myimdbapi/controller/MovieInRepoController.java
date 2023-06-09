@@ -81,18 +81,14 @@ public class MovieInRepoController {
     public String saved(Model model) {
         List<MovieDTO> listMovieDTO = getListMovieDTO(MovieDB::isSaved);
         model.addAttribute("movies", listMovieDTO);
-        model.addAttribute("title", "Saved movies");
-        model.addAttribute("active", "saved");
-        return "list-movies";
+        return "saved";
     }
 
     @GetMapping(value = "/favorites")
     public String favorites(Model model) {
         List<MovieDTO> listMovieDTO = getListMovieDTO(MovieDB::isFavorites);
         model.addAttribute("movies", listMovieDTO);
-        model.addAttribute("title", "Favorites movies");
-        model.addAttribute("active", "favorites");
-        return "list-movies";
+        return "favorites";
     }
 
     private List<MovieDTO> getListMovieDTO(Predicate<MovieDB> predicate) {
