@@ -22,6 +22,10 @@ public class Convertor {
         return new MovieDB(movie.getId(), movie.getTitle(), movie.getYear(), movie.getImage(), movie.getCrew(), movie.getImDbRating(), movie.isSaved(), movie.isFavorites());
     }
 
+    public static MovieDTO convertMovieDBToMovieDTO(MovieDB movie) {
+        return new MovieDTO(movie.getId(), movie.getTitle(), movie.getYear(), movie.getImage(), movie.getCrew(), movie.getImDbRating(), movie.isSaved(), movie.isFavorites());
+    }
+
     public static List<MovieDTO> convertMovieDBToMovieDTO(List<MovieDB> movies) {
         List<MovieDTO> movieDTOs = new ArrayList<>();
         for (MovieDB m : movies) {
