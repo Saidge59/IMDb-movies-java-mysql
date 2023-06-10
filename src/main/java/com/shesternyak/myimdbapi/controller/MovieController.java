@@ -15,23 +15,20 @@ import java.util.List;
 @Controller
 public class MovieController {
 
-    MoviesFromIMDdService moviesService;
+    MoviesFromIMDdService imDdService;
     MovieService movieService;
 
-    public MovieController(MoviesFromIMDdService moviesService, MovieService movieService) {
-        this.moviesService = moviesService;
+    public MovieController(MoviesFromIMDdService imDdService, MovieService movieService) {
+        this.imDdService = imDdService;
         this.movieService = movieService;
     }
 
     @GetMapping("/most-popular-movies")
     public String getMostPopularMovies(Model model) {
-        List<Movie> mostPopularMovies = moviesService.getMostPopularMovies();
+        List<Movie> mostPopularMovies = imDdService.getMostPopularMovies();
         List<MovieDTO> tempList = Convertor.convertMovieToMovieDTO(mostPopularMovies);
 
-        List<MovieDB> movieDBList = movieService.getAllMovies();
-        List<MovieDTO> repoList = Convertor.convertMovieDBToMovieDTO(movieDBList);
-
-        checkSavedAndFavorites(tempList,  repoList);
+        checkSavedAndFavorites(tempList);
 
         model.addAttribute("movies", tempList);
         return "most-popular-movies";
@@ -39,13 +36,10 @@ public class MovieController {
 
     @GetMapping("/most-popular-series")
     public String getMostPopularSeries(Model model) {
-        List<Movie> mostPopularSeries = moviesService.getMostPopularSeries();
+        List<Movie> mostPopularSeries = imDdService.getMostPopularSeries();
         List<MovieDTO> tempList = Convertor.convertMovieToMovieDTO(mostPopularSeries);
 
-        List<MovieDB> movieDBList = movieService.getAllMovies();
-        List<MovieDTO> repoList = Convertor.convertMovieDBToMovieDTO(movieDBList);
-
-        checkSavedAndFavorites(tempList,  repoList);
+        checkSavedAndFavorites(tempList);
 
         model.addAttribute("movies", tempList);
         return "most-popular-series";
@@ -53,13 +47,10 @@ public class MovieController {
 
     @GetMapping("/top-250-movies")
     public String getTop250Movies(Model model) {
-        List<Movie> top250Movies = moviesService.getTop250Movies();
+        List<Movie> top250Movies = imDdService.getTop250Movies();
         List<MovieDTO> tempList = Convertor.convertMovieToMovieDTO(top250Movies);
 
-        List<MovieDB> movieDBList = movieService.getAllMovies();
-        List<MovieDTO> repoList = Convertor.convertMovieDBToMovieDTO(movieDBList);
-
-        checkSavedAndFavorites(tempList,  repoList);
+        checkSavedAndFavorites(tempList);
 
         model.addAttribute("movies", tempList);
         return "top-250-movies";
@@ -67,19 +58,19 @@ public class MovieController {
 
     @GetMapping("/top-250-series")
     public String getTop250Series(Model model) {
-        List<Movie> top250Series = moviesService.getTop250Series();
+        List<Movie> top250Series = imDdService.getTop250Series();
         List<MovieDTO> tempList = Convertor.convertMovieToMovieDTO(top250Series);
 
-        List<MovieDB> movieDBList = movieService.getAllMovies();
-        List<MovieDTO> repoList = Convertor.convertMovieDBToMovieDTO(movieDBList);
-
-        checkSavedAndFavorites(tempList,  repoList);
+        checkSavedAndFavorites(tempList);
 
         model.addAttribute("movies", tempList);
         return "top-250-series";
     }
 
-    private void checkSavedAndFavorites(List<MovieDTO> tempList, List<MovieDTO> repoList) {
+    private void checkSavedAndFavorites(List<MovieDTO> tempList) {
+        List<MovieDB> movieDBList = movieService.getAllMovies();
+        List<MovieDTO> repoList = Convertor.convertMovieDBToMovieDTO(movieDBList);
+
         if (!repoList.isEmpty()) {
             for (MovieDTO t : tempList) {
                 for (MovieDTO r : repoList) {
