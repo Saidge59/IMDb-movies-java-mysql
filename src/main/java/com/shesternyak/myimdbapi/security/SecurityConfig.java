@@ -32,9 +32,7 @@ public class SecurityConfig {
                                         "/most-popular-series",
                                         "/top-250-movies",
                                         "/top-250-series",
-                                        "/movie-list",
-                                        "/saved",
-                                        "/favorites"
+                                        "/movie-list"
                                 ).permitAll()
                                 .anyRequest().authenticated())
                 .formLogin((form) -> form
