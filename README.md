@@ -6,7 +6,7 @@ The project utilizes a third-party free service called IMDb API, which does not 
 
 IMDb API is a web service used to retrieve information about movies, TV shows, and cast members. The API results are in JSON format and include various elements such as movie details, images, posters, trailers, ratings, Wikipedia page content, and more.
 
-The project consists of a server written in Node.js and includes a MySQL database.
+The project consists of a server written in Java and includes a MySQL database.
 
 The service is obtained from https://imdb-api.com/
 
@@ -23,20 +23,6 @@ Example JSON response: https://imdb-api.com/en/API/Top250Movies/yourApiKey
     "imDbRating": "8.2",
     "imDbRatingCount": "1119777"
 }
-```
-You will need to create a database table
-```
-CREATE TABLE movies (
-    id VARCHAR(255) NOT NULL,
-    title VARCHAR(255) NOT NULL,
-    image VARCHAR(255),
-    crew VARCHAR(255),
-    year VARCHAR(255),
-    rating VARCHAR(255),
-    is_saved BOOLEAN,
-    is_favorites BOOLEAN,
-    PRIMARY KEY (id)
-);
 ```
 It will look something like this...
 
