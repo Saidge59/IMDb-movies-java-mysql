@@ -1,12 +1,10 @@
 
 body {
-    /* background-color:gray; */
     background: linear-gradient(to top left, rgb(130, 130, 255), rgb(168, 254, 241));
     background-attachment: fixed;
 }
 
 .main {
-    /* background-color: rgb(235, 255, 226);*/
     background-color: #fffcd8;
     min-height: 700px;
 }

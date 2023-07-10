@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
-    <title>Login</title>
+    <title>Index</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <link rel="stylesheet" th:href="@{/css/style.css}">
@@ -24,6 +24,7 @@
                 <span sec:authorize="hasAuthority('ADMIN')">
                     <a class="nav-link" th:href="@{/admin}">Admin</a>
                 </span>
+
             </div>
         </div>
         <button type="button" class="btn btn-warning">
@@ -35,46 +36,16 @@
 
 <div class="container main">
     <br>
-    <br>
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
-                <br>
-                <h2 class="text-center">Login</h2>
-                <div class="card-body">
-
-                    <div th:if="${param.error}">
-                        <div class="alert alert-danger">Invalid Username or Password</div>
-                    </div>
-                    <div th:if="${param.logout}">
-                        <div class="alert alert-success">You have been logged out</div>
-                    </div>
-
-                    <form th:action="@{/login}" method="post">
-                        <div class="form-group">
-                            <label class="control-label">Username</label>
-                            <input type="text" class="form-control" name="username" placeholder="Enter your username"/>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="control-label">Password</label>
-                            <input type="password" class="form-control" name="password" placeholder="Enter your password"/>
-                        </div>
-                        <br>
-                        <div class="form-group">
-                            <button type="submit" class="btn btn-success">Sign In</button>
-                            or <a class="link-primary" th:href="@{/registration}">Register</a>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
+    <div class="preview">
+        <h2>IMDb movies</h2>
+        <hr>
+        <p>The project is intended for informational purposes. It allows users to save movies they plan to watch later or mark them as favorites. The user receives updated information each time they access the project.</p>
+        <p>The project utilizes a third-party free service called IMDb API, which does not store the actual movies and content protected by copyright.</p>
+        <p>IMDb API is a web service used to retrieve information about movies, TV shows, and cast members. The API results are in JSON format and include various elements such as movie details, images, posters, trailers, ratings, Wikipedia page content, and more.</p>
+        <p>The project consists of a server written in Java and includes a MySQL database.</p>
+        <p>The service is obtained from <a href="https://imdb-api.com">IMDb API</a></p>
     </div>
-
     <br>
-    <br>
-
-    </div>
 </div>
 
 </body>
